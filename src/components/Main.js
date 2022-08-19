@@ -12,10 +12,10 @@ function Main() {
         <Button>week1_Search</Button>
       </NavLink>
       <NavLink to="/iconbutton">
-        <Button>Week2_IconButton</Button>
+        <Button>Week2_Button</Button>
       </NavLink>
       <NavLink to="/modal">
-        <Button>Week2_IconButton</Button>
+        <Button>Week3_Modal</Button>
       </NavLink>
     </Container>
   );
