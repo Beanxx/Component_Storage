@@ -10,12 +10,13 @@ export const Button = styled.button`
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   border-radius: 50px;
   width: ${(props) => props.width || "300px"};
-  height: ${(props) => props.width || "60px"};
+  height: ${(props) => props.height || "60px"};
   transition-duration: 0.4s;
   font-size: 20px;
   font-weight: 600;
   text-align: center;
   margin: 10px;
+  outline: 0;
 
   &:hover {
     background: linear-gradient(-45deg, #6f86d6 0%, #48c6ef 100%);
