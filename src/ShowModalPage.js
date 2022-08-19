@@ -41,4 +41,5 @@ const Container = styled.div`
   margin: auto;
   width: 100vw;
   height: 100vh;
+  text-align: center;
 `;
