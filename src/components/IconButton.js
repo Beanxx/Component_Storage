@@ -3,6 +3,7 @@
 
 import React from "react";
 import styled from "styled-components";
+import "../App.css";
 
 function IconButton() {
   return (
@@ -27,6 +28,7 @@ const Container = styled.span`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  font-family: "Silkscreen";
 
   ul {
     position: relative;

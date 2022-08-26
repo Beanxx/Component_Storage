@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Button } from "./Button";
 import styled from "styled-components";
+import "../App.css";
 
 function Main() {
   const [show, setShow] = useState(false);
@@ -17,6 +18,9 @@ function Main() {
       <NavLink to="/modal">
         <Button>Week3_Modal</Button>
       </NavLink>
+      <NavLink to="/login">
+        <Button>Week4_LoginForm</Button>
+      </NavLink>
     </Container>
   );
 }
@@ -29,4 +33,5 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  font-family: "Silkscreen";
 `;
