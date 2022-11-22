@@ -1,65 +1,102 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import LoginInput from "./LoginInput";
 import BasicBtn from "./BasicBtn";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
-function JoinForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [pw, setPw] = useState("");
-  const [pwConfirm, setPwConfirm] = useState("");
-  const [flag, setFlag] = useState(false);
+type Inputs = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
 
-  const JoinFunc = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-    setFlag(true);
+const schema = yup.object().shape({
+  name: yup
+    .string()
+    .min(3, "닉네임을 3글자 이상으로 입력해주세요.")
+    .required("닉네임을 필수로 입력해주세요."),
+  email: yup
+    .string()
+    .email("이메일 형식을 맞춰서 입력해주세요.")
+    .required("이메일을 필수로 입력해주세요."),
+  password: yup
+    .string()
+    .min(3, "비밀번호를 3~16글자로 입력해주세요.")
+    .max(16, "비밀번호를 3~16글자로 입력해주세요.")
+    .matches(
+      /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W))/,
+      "비밀번호에 영문, 숫자, 특수문자를 포함해주세요."
+    )
+    .required("비밀번호를 필수로 입력해주세요."),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "비밀번호가 일치하지 않습니다."),
+});
+
+const JoinForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm<Inputs>({ resolver: yupResolver(schema), mode: "onChange" });
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log(data);
   };
 
   return (
     <Container>
-      <Form>
-        <LoginInput
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.currentTarget.value)}
-        >
-          NickName
-        </LoginInput>
-        <LoginInput
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.currentTarget.value)}
-        >
-          Email
-        </LoginInput>
-        <LoginInput
-          type="password"
-          value={pw}
-          onChange={(e) => setPw(e.currentTarget.value)}
-        >
-          Password
-        </LoginInput>
-        <LoginInput
-          type="password"
-          value={pwConfirm}
-          onChange={(e) => setPwConfirm(e.currentTarget.value)}
-        >
-          Password Confirm
-        </LoginInput>
+      <Form id="join" onSubmit={handleSubmit(onSubmit)}>
+        <Box>
+          <LoginInput id="name" type="text" register={register("name")}>
+            NickName
+          </LoginInput>
+          {errors.name && <Message>{errors.name.message}</Message>}
+        </Box>
 
-        <BasicBtn
-          disabled={flag}
-          btnType="highlighted"
-          onClick={(e) => JoinFunc(e)}
-        >
-          Sign up
-        </BasicBtn>
+        <Box>
+          <LoginInput id="email" type="email" register={register("email")}>
+            Email
+          </LoginInput>
+          {errors.email && <Message>{errors.email.message}</Message>}
+        </Box>
+
+        <Box>
+          <LoginInput
+            id="password"
+            type="password"
+            register={register("password")}
+          >
+            Password
+          </LoginInput>
+          {errors.password && <Message>{errors.password.message}</Message>}
+        </Box>
+
+        <Box>
+          <LoginInput
+            id="confirm-password"
+            type="password"
+            register={register("confirmPassword")}
+          >
+            Confirm Password
+          </LoginInput>
+          {errors.confirmPassword && (
+            <Message>{errors.confirmPassword.message}</Message>
+          )}
+        </Box>
+
+        <BtnBox>
+          <BasicBtn disabled={isSubmitting} btnType="highlighted" type="submit">
+            Sign up
+          </BasicBtn>
+        </BtnBox>
       </Form>
     </Container>
   );
-}
+};
 
 export default JoinForm;
 
@@ -78,13 +115,11 @@ const Container = styled.div`
   }
 `;
 
-const Form = styled.div`
+const Form = styled.form`
   width: 300px;
-  height: 400px;
+  height: 380px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
   border-radius: 7px;
   background-color: #fff;
   box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.05),
@@ -92,4 +127,23 @@ const Form = styled.div`
   padding: 20px;
   margin-top: 2rem;
   margin-bottom: 1rem;
+`;
+
+const Message = styled.div`
+  width: 100%;
+  color: red;
+  font-size: 11px;
+  padding-left: 3px;
+`;
+
+const Box = styled.div`
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+const BtnBox = styled.div`
+  margin-top: 1rem;
 `;
