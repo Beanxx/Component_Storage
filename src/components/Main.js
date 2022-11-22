@@ -10,16 +10,19 @@ function Main() {
   return (
     <Container>
       <NavLink to="/search">
-        <Button>week1_Search</Button>
+        <Button>SearchBar</Button>
       </NavLink>
       <NavLink to="/iconbutton">
-        <Button>Week2_Button</Button>
+        <Button>Button</Button>
       </NavLink>
       <NavLink to="/modal">
-        <Button>Week3_Modal</Button>
+        <Button>Modal</Button>
       </NavLink>
       <NavLink to="/login">
-        <Button>Week4_LoginForm</Button>
+        <Button>LoginForm</Button>
+      </NavLink>
+      <NavLink to="/join">
+        <Button>JoginForm</Button>
       </NavLink>
     </Container>
   );
