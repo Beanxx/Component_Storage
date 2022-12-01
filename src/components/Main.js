@@ -24,6 +24,9 @@ function Main() {
       <NavLink to="/join">
         <Button>JoginForm</Button>
       </NavLink>
+      <NavLink to="/page">
+        <Button>Pagination</Button>
+      </NavLink>
     </Container>
   );
 }

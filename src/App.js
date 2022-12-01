@@ -7,6 +7,7 @@ import IconButton from "./components/IconButton";
 import ShowModalPage from "./ShowModalPage";
 import LoginForm from "./components/LoginForm";
 import JoinForm from "./components/JoinForm.tsx";
+import Page from "./components/Page";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/modal" element={<ShowModalPage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/join" element={<JoinForm />} />
+        <Route path="/page" element={<Page />} />
       </Routes>
     </div>
   );
